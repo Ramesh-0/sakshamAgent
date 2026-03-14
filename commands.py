@@ -1,22 +1,29 @@
-import subprocess
-import os
+from editor import change_line
 
+def process_command(command):
 
-def run_npm_start():
-    subprocess.run("npm start", shell=True)
+    if "run npm start" in command:
+        run_npm_start()
 
+    elif "git status" in command:
+        git_status()
 
-def git_status():
-    subprocess.run("git status", shell=True)
+    elif "git add all" in command:
+        git_add_all()
 
+    elif "git push" in command:
+        git_push()
 
-def git_add_all():
-    subprocess.run("git add .", shell=True)
+    elif "open vscode" in command:
+        open_vscode()
 
+    elif "change line" in command:
 
-def git_push():
-    subprocess.run("git push", shell=True)
+        # example: change line 10
+        words = command.split()
 
+        line_number = int(words[2])
 
-def open_vscode():
-    os.system("code .")
+        text = input("Enter new code: ")
+
+        change_line("app.js", line_number, text)
